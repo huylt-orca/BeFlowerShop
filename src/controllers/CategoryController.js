@@ -1,5 +1,5 @@
 const CategoryService = require("../services/CategoryService");
-const data = require('../seeders/data');
+const data = require('../data/data');
 
 module.exports = {
   async index(req, res) {
