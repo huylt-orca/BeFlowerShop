@@ -32,6 +32,9 @@ module.exports = {
       },
       phone: {
         type: Sequelize.STRING
+      },
+      roleId:{
+        type: Sequelize.INTEGER
       }
     });
   },
