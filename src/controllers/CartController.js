@@ -1,24 +1,24 @@
 const CartService = require("../services/CartService");
 
 module.exports = {
-    async index(req, res) {
-        
+    async getAllProductByUserId(req, res) {
+            let data = await CartService.getAllProductByUserId(req.params.userId);
+
             return res.status(200).json({
                 status: 200,
                 message: 'Get Cart Successful',
-                data: 'data'
+                data: data
             });
         
     },
 
-    async store(req, res) {
-
+    async addProductToCart(req, res) {
       try {
+        await CartService.addProductToCart(req.params.userId,req.body);
 
         return res.status(200).json({
             status: 200,
-            message: 'Message',
-            data: 'data'
+            message: 'Add Product To Cart Successful',
         });
 
         } catch (err) {
@@ -29,13 +29,12 @@ module.exports = {
       }
     },
 
-    async delete(req, res) {
+    async removeProductToCart(req, res) {
         try {
-
+            await CartService.removeProductToCart(req.params.userId,req.params.productId);
             return res.status(200).json({
                 status: 200,
-                message: 'Message',
-                data: 'data'
+                message: 'Remove Product To Cart Successful',
             });
     
             } catch (err) {
@@ -45,21 +44,4 @@ module.exports = {
                 });
           }
     },
-
-    async update(req, res) {
-        try {
-
-            return res.status(200).json({
-                status: 200,
-                message: 'Message',
-                data: 'data'
-            });
-    
-            } catch (err) {
-                return res.status(400).json({
-                    status: 400,
-                    message: err,
-                });
-          }
-    }
 };

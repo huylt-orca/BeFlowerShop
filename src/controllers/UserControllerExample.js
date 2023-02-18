@@ -3,7 +3,8 @@ const bcrypt = require('bcryptjs');
 
 const jwt = require('jsonwebtoken');
 
-const authConfig = require('../config/auth')
+const authConfig = require('../config/auth');
+const { getDataFromToken } = require('../utils/utils');
 
 function generateToken(params = {}) {
     return jwt.sign(params, authConfig.secret, {
@@ -123,6 +124,9 @@ module.exports = {
             message: "Delete Successful",
         });
 
-    }
+    },
+
+    
+
 
 };

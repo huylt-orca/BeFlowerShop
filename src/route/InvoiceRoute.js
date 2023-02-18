@@ -3,7 +3,9 @@ const InvoiceController = require('../controllers/InvoiceController')
 
 let route =  express.Router();
 
-//route.get('/test',InvoiceController.test);
+route.post('/',InvoiceController.create);
+route.get('/:id',InvoiceController.index);
+route.get('/user/:id',InvoiceController.getAllByUserId);
 
 
 

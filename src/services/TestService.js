@@ -119,6 +119,10 @@ let getAll = (id)=>{
     })
 }
 
+let pagination = async(data) =>{
+    await db.User.findAll({ offset: 5, limit: 5 });
+}
+
 module.exports = {
     createNewUser: createNewUser,
     editUser:edit

@@ -14,13 +14,13 @@ const userRoute = require('./UserRoute');
 let router = express();
 
 router.use('/cart',cartRoute);
-router.use('/category',categoryRoute);
+router.use('/categories',categoryRoute);
 router.use('/favorite',favoriteRoute);
 router.use('/image',imageRoute);
 router.use('/invoice-product',invoiceProductRoute);
-router.use('/invoice',invoiceRoute);
-router.use('/product',productRoute);
-router.use('/user',userRoute);
+router.use('/invoices',invoiceRoute);
+router.use('/products',productRoute);
+router.use('/users',userRoute);
 
 
 
