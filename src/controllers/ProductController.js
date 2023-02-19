@@ -1,5 +1,5 @@
 const ProductService = require("../services/ProductService");
-
+const Firebase = require('../services/Firebase');
 
 module.exports = {
   async index(req, res) {
@@ -73,5 +73,9 @@ module.exports = {
     }
   },
 
-
+  async testUpload(req,res) {
+      // return res.json(req.file.firebaseUrl);
+      const file = await Firebase.uploadImage(req);
+      return res.json(file);
+  }
 };

@@ -10,6 +10,8 @@ const invoiceRoute = require('./InvoiceRoute');
 const productRoute = require('./ProductRoute');
 const userRoute = require('./UserRoute');
 
+const notificationController = require('../controllers/NotificationController');
+
 
 let router = express();
 
@@ -21,6 +23,7 @@ router.use('/invoice-product',invoiceProductRoute);
 router.use('/invoices',invoiceRoute);
 router.use('/products',productRoute);
 router.use('/users',userRoute);
+router.post('/notification',notificationController.create);
 
 
 

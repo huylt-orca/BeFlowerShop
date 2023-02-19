@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "prmflowershop",
+  "private_key_id": "4da761f254a2392a9afe111922df616cdabe7faa",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDXB9nKklCSEv4o\nNeii46Kq9edAvjLMuhTrM8jHnKYolhNZ195okvE8m2+t9/xjayg/KHNdFDfBKVEp\n/ROXco9Tx2OC5HlssB7MlydE58Hvky/jthGmN/D8tGrdSWNY79d83eNv3/btKyj2\nVyCQVs+AwujSVYFAZdiNOEW89kYUnqB171A4N9MBWjldSMHOVQGhCxyn0aE/89gE\n/t7ULH/DU7C4PUEMRIfgIasiQM/FJKPTi63G/B4ASQPUgjbcsgUDTndxQjcU3y45\nQ0EvYfVDTaYwG5hzdklGdiC6YL2jJi0RzORigQLDDe8lq0YY6Y7dxv8c36nVMLPR\nSu1MA0CvAgMBAAECggEAOwwsWcyw9FPj2A3pqqVA25p4HNa942sr6GSJe4sAM7/2\nY2L8b5H+TarPUaH5/CEGZcWJXGN7Zf8fCx00Xo+2XQaxRFXSJC7+3iaZwXm0z0GH\nUowCL7dH5VTzzX1kGx2NenwCAwwo5frGnlLRneFAzPZ48Z1KR3FQNINh3yBvoSRn\nF7W/pSxhoz7dSVjCPud7Ffpn4iFf2eXv08LJAEOc3/uBQP1rxP78/L2BO0yvSKXG\nxbHwkAB5f5PZ+kxdSzoyJUtmyEWwpftGYVzWqEsvkn3kEtyUwiXlpTdaesA8GWpf\nlAQUnsFmK3V83nLrRT7Jkte9G/ikX80/SlY/mdgRsQKBgQD3lIBXHIvhocdOp7LP\n2sB8O8b5R39XMMUoL9ob2ZSoKz0nI+IPP7Ow5kkmvaT/Myk1M86jPDI/qmBU/Kpg\nlXwnHkKPZ60fNxZclIPqUbrZi2JhSQ3Ycoxf394Eb8Q55BVSBiKJW82Crxhy+tir\ntOxnaN04DIm+i8ViL56BWl6O0QKBgQDeV/codtUFLDbsYoZ+1y8Rj+Q2xYHZzlkP\nVEjyP3DBzNCN4fVKRjxNBqCFWU7e3mXfKlYrZUUFde5283aShfMq6K/7wgYj7Tvf\nYgdz3mM4r2Jx9raVrlQN7c1+ff8A43fNTkkybFwaYODY1jyeafZp/9R58nlKrixO\n1503TZO3fwKBgQC2OMqtUwlxrIzxS2TEr5D031p3pzQGjJLQHUg/L0nG7Ow5nqOH\n7a7oCNbWeMa0PoeZ7OOuKWQij9gPNViBdgTHFfKPchNt4jHHOlhNYpJQA9MJH6fd\nI5JGDpNuWIToxwMaOAG7b6I3CYDJP++xkZxeEESiODg50s4YkkvrkQP/wQKBgQDM\nOFmwle008haEaj6ElFsMM3D3CdQp3QkaNl1F/BUyPFA2cZueHALY8MRRluUFeZpy\nLu20sDCEQnzETvzSuivOdqjlgaGoMAc1N1IHD/VspFK0wFmWA+f6XzjG/S1SgJuS\nPFyo7rRuGhuLrsNA8ay+UZe0Zo0XlgDmbc5edGfAOwKBgQDRIbknI5R/IrXsde5J\nUCFceRkA3yOo9Z4Sotw64ZmKkD1AFgd/hHKTXv4uWDqUn7q7DBn+qURqhDqrzgok\nzfSYYspDiVnppsWmNRMSzVmitv4GQ76WqEdSKEPE2KWYUDGRiue1zqDlxKusl4v6\nyrLWzEamr2T/4UFvEpxUSK0Rew==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-7a7k0@prmflowershop.iam.gserviceaccount.com",
+  "client_id": "112565779608420112585",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-7a7k0%40prmflowershop.iam.gserviceaccount.com"
+}

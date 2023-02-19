@@ -1,10 +1,18 @@
 const express = require('express');
 const ProductController = require('../controllers/ProductController')
 const multer = require('multer');
+const firebase = require('../services/Firebase');
+
+const Multer = multer({
+    storage: multer.memoryStorage(),
+    limits: 1024*1024
+})
+
 const upload = multer({ dest: 'uploads/' });
 
 let route =  express.Router();
 
+route.post('/testUpload',Multer.single("image"),ProductController.testUpload)
 
 route.post('/',upload.array('image'),ProductController.create);
 route.put('/',ProductController.update);
