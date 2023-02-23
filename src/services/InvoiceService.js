@@ -2,15 +2,15 @@ const { Op } = require('sequelize');
 const db = require ('../models/index');
 const product = require('../models/product');
 
-let getAllByUserId = (userId,pagination)=>{
+let getAllByUserId = (userId,data)=>{
     return new Promise( async(resolve,reject)=>{
         try {
             let invoices = await db.Invoice.findAll({
                 where:{
                     userId: userId
                 },
-                offset: (pagination.page - 1 ) * pagination.limit || 0, 
-                limit: pagination.limit || 10
+                offset: (data.page - 1 ) * data.limit || 0, 
+                limit: data.limit || 10
             });
             resolve(invoices);
         }catch (e){
@@ -39,17 +39,35 @@ let create = (data,userId)=>{
                 })
 
                 if (!tmp){
-                    reject("Hello");
+                    reject("Product is out of stock");
                 }
             });
 
-            await db.Invoice.create({
+            let invoice = await db.Invoice.create({
                 userId: userId,
                 createDate: new Date(),
                 phone: data.phone,
                 price: data.price,
                 description:data.description
             });
+
+            data.products.forEach(async product =>{
+                await db.InvoiceProduct.create({
+                    invoiceId: invoice.id,
+                    productId: product.id,
+                    quantity: product.quantity
+                });
+                await db.Product.update({
+                    quantity: Sequelize.literal(`quantity - ${product.quantity}`) 
+                },
+                {
+                    where:{
+                        id: product.id
+                    }
+                } 
+                )
+            })
+
             resolve("Create Invoice Successful");
         }catch(e){
             reject(e);
@@ -60,7 +78,18 @@ let create = (data,userId)=>{
 let getIndex = (invoiceId) =>{
     return new Promise(async(resolve, reject)=>{
         try{
-            let invoice = await db.Invoice.findByPk(invoiceId);
+            let invoice = await db.Invoice.findByPk(invoiceId,{
+                include: [
+                    {
+                      model: InvoiceProduct,
+                      include: [
+                        {
+                          model: Product,
+                        }
+                      ]
+                    }
+                  ]
+            });
             resolve(invoice);
         }catch(e){
             reject(e);

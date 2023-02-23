@@ -24,9 +24,15 @@ module.exports = {
 
   async create(req, res) {
     try {
-      
-      await ProductService.create(req.body);
+      const listImage = [];
+      req.files.forEach(async file =>  {
+        const url = await Firebase.uploadImage(file);
+        listImage.push(url);
+      });
 
+       
+
+      await ProductService.create(req.body,listImage);
       return res.status(200).json({
         status: 200,
         message: "Create Product Successful",
@@ -75,7 +81,7 @@ module.exports = {
 
   async testUpload(req,res) {
       // return res.json(req.file.firebaseUrl);
-      const file = await Firebase.uploadImage(req);
+      const file = await Firebase.uploadImage(req.file);
       return res.json(file);
   }
 };

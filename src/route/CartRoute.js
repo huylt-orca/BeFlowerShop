@@ -5,9 +5,9 @@ let route =  express.Router();
 
 
 
-route.get('/:userId',CartController.getAllProductByUserId);
-route.post('/:userId',CartController.addProductToCart);
-route.delete('/:productId/:userId',CartController.removeProductToCart);
+route.get('/',CartController.getAllProductByUserId);
+route.post('/',CartController.addProductToCart);
+route.delete('/:productId',CartController.removeProductToCart);
 
 
 module.exports = route;

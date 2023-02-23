@@ -2,7 +2,7 @@ const CartService = require("../services/CartService");
 
 module.exports = {
     async getAllProductByUserId(req, res) {
-            let data = await CartService.getAllProductByUserId(req.params.userId);
+            let data = await CartService.getAllProductByUserId(req.query.userId,req.query);
 
             return res.status(200).json({
                 status: 200,
@@ -14,7 +14,7 @@ module.exports = {
 
     async addProductToCart(req, res) {
       try {
-        await CartService.addProductToCart(req.params.userId,req.body);
+        await CartService.addProductToCart(req.query.userId,req.body);
 
         return res.status(200).json({
             status: 200,
@@ -31,7 +31,7 @@ module.exports = {
 
     async removeProductToCart(req, res) {
         try {
-            await CartService.removeProductToCart(req.params.userId,req.params.productId);
+            await CartService.removeProductToCart(req.query.userId,req.params.productId);
             return res.status(200).json({
                 status: 200,
                 message: 'Remove Product To Cart Successful',

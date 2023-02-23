@@ -4,7 +4,7 @@ module.exports = {
 
   async create(req, res) {
     try {
-      await FavoriteService.create(req.body.userId,req.body.productId);
+      await FavoriteService.create(req.query.userId,req.body.productId);
 
       return res.status(200).json({
         status: 200,
@@ -20,7 +20,7 @@ module.exports = {
 
   async delete(req, res) {
     try {
-      await FavoriteService.remove(req.params.userId,req.params.productId);
+      await FavoriteService.remove(req.query.userId,req.params.productId);
 
       return res.status(200).json({
         status: 200,
@@ -36,7 +36,7 @@ module.exports = {
 
   async getAllFavoriteByUserId(req, res) {
     try {
-      let data = await FavoriteService.getAllFavoriteByUserId(req.params.userId);
+      let data = await FavoriteService.getAllFavoriteByUserId(req.query.userId,req.query);
 
       return res.status(200).json({
         status: 200,

@@ -3,19 +3,32 @@ const db = require("../models/index");
 let addProductToCart = (userId, data) => {
     return new Promise(async (resolve, reject) => {
         try {
-        let cart = await db.Cart.findOne({
-            userId: userId,
-            productId: data.productId,
-        });
+        let cart = await db.Cart.findOne(
+            { where : {
+                userId: userId,
+                productId: data.productId,
+            }}
+           );
         if (!cart) {
             await db.Cart.create({
             userId: userId,
             productId: data.productId,
             quantity: data.quantity
             });
-        } else {
-            cart.quantity = data.quantity;
-            await cart.save();
+        } else { console.log('-1');
+            // cart.quantity = data.quantity;
+            // await cart.save();
+            // cart.update({quantity: data.quantity}).then(()=>{
+            //     console.log('heeloo');
+            // }).catch((err)=>{ console.log(err)});
+            await db.Cart.update({
+                quantity: data.quantity
+            },{
+                where:{
+                    userId: userId,
+                    productId: data.productId, 
+                }
+            })
         }
         resolve("Add Product to Cart Successful");
         } catch (e) {
@@ -24,16 +37,20 @@ let addProductToCart = (userId, data) => {
     });
 };
 
-let getAllProductByUserId = (userId) => {
+let getAllProductByUserId = (userId,data) => {
     return new Promise(async (resolve, reject) => {
         try {
-        let data = await db.Cart.findAll({
+        let cart = await db.Cart.findAll({
             where: {
             userId: userId,
             },
             include: [{ model: db.Product }],
+            raw:true,
+            nest:true,
+            offset: (data.page - 1 ) * data.limit || 0, 
+            limit: parseInt(data.limit) || 10
         });
-        resolve(data);
+        resolve(cart);
         } catch (e) {
         reject(e);
         }

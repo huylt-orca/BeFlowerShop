@@ -10,6 +10,9 @@ let getAll = (data)=>{
             if (!data.category){
                 data.category='%';
             }
+            if (!data.id){
+                data.id = '%';
+            }
 
             let products = await db.Product.findAll({
                 where: {
@@ -23,10 +26,13 @@ let getAll = (data)=>{
                             categoryId:{
                                 [Op.like]: `${data.category}`
                             }
+                        },
+                        {
+                            id:{
+                                [Op.like]: `${data.id}`
+                            }
                         }
                     ]
-                    
-                    
                 },
                 offset: (data.page - 1 ) * data.limit || 0, 
                 limit: data.limit || 10
@@ -38,16 +44,24 @@ let getAll = (data)=>{
     })
 }
 
-let create = (data)=>{
+let create = (data,listImage)=>{
     return new Promise( async(resolve,reject)=>{
         try {
-            await db.Product.create({
+            const product = await db.Product.create({
                 name: data.name,
-                quantity: data.quantity,
+                quantity:data.quantity,
                 price: data.price,
                 description: data.description,
                 status: 1,
                 categoryId:data.categoryId 
+            });
+
+            
+            listImage.forEach(async element => {
+                await db.Image.create({
+                    url: element,
+                    productId: product.id
+                })
             });
             resolve("Create Product Successful");
         }catch (e){

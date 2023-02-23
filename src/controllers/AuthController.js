@@ -12,7 +12,7 @@ module.exports = {
             next();
         }
          else {
-          res.json('Please Login');
+          res.status(401).json('Please Login');
         }
     } catch(e){
       res.json(e);
@@ -25,7 +25,7 @@ module.exports = {
           next();
       }
        else {
-        res.json('Not Permission');
+        res.status(403).json('Not Permission');
       }
   },
 
@@ -35,7 +35,7 @@ module.exports = {
           next();
       }
        else {
-        res.json('Not Permission');
+        res.status(403).json('Not Permission');
       }
   },
   

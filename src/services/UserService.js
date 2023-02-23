@@ -1,11 +1,14 @@
 const db = require ('../models/index');
 const {hashUserPassword,generateToken, generateRefreshToken} = require('../utils/utils');
+const Firebase = require('./Firebase');
 const bcrypt = require('bcryptjs');
+const { Op } = require('sequelize');
 
 let createNewUser = async (data) =>{
     return new Promise (async(resolve, reject)=>{
         try {
             let hashPasswordFromBcrypt = await hashUserPassword(data.password);
+            
             await db.User.create({
                 fullname: data.fullname,
                 gender: data.gender,
@@ -25,8 +28,6 @@ let createNewUser = async (data) =>{
 }
 
 
-
-//35
 let login = (data) =>{
     return new Promise( async(resolve,reject)=>{
         try {
@@ -52,11 +53,29 @@ let login = (data) =>{
 }
 
 
-let getAll = ()=>{
+let getAll = (data)=>{
     return new Promise( async(resolve,reject)=>{
         try {
-            let data = await db.User.findAll();
-            resolve(data);
+            if (!data.fullname){
+                data.fullname=' ';
+            }
+            if (!data.id){
+                data.id=' ';
+            }
+            let users = await db.User.findAll({
+                where: {
+                    id: {
+                        [Op.like]: `${data.id.trim()}`
+                    },
+                    fullname: {
+                        [Op.like]: `%${data.fullname.trim()}%`
+                    }
+                },
+                attributes: { exclude: ['password'] },
+                offset: (data.page - 1 ) * data.limit || 0, 
+                limit: parseInt(data.limit) || 10
+            });
+            resolve(users);
             
         }catch (e){
             reject(e);
@@ -90,7 +109,9 @@ let update = (data,userId)=>{
 let getIndex = (id)=>{
     return new Promise (async(resolve,reject)=>{
         try {
-            let user = await db.User.findByPk(id);
+            let user = await db.User.findByPk(id,{
+                
+            });
             resolve(user);
         }catch(e){
             reject(e);

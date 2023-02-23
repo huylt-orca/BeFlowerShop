@@ -5,7 +5,13 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec babel-node  src/server.js"
+    "start": "nodemon --exec babel-node  src/swagger.js",
+    "swagger-autogen": "node ./swagger.js"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "src/swagger_output.json"
+    ]
   },
   "author": "",
   "license": "ISC",
@@ -24,7 +30,7 @@
     "mysql2": "^3.1.0",
     "sequelize": "^6.28.0",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^4.6.0",
+    "swagger-ui-express": "^4.6.1",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
@@ -32,6 +38,7 @@
     "@babel/node": "^7.20.7",
     "@babel/preset-env": "^7.20.2",
     "nodemon": "^2.0.20",
-    "sequelize-cli": "^6.6.0"
+    "sequelize-cli": "^6.6.0",
+    "swagger-autogen": "^2.23.1"
   }
 }

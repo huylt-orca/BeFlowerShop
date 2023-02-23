@@ -2,7 +2,6 @@
 const admin = require("firebase-admin");
 const { v4: uuidv4 } = require('uuid');
 const FCM = require("fcm-node");
-const SERVERKEY = "";
 
 const serviceAccount = require("../config/firebase-sdk.json");
 
@@ -35,10 +34,12 @@ const uploadImage =  (image) =>{
             stream.on("finish", async()=>{
                 await file.makePublic();
 
-                resolve(`https://storage.googleapis.com/${BUCKET}/${filename}`);
+                
             })
         
             stream.end(image.buffer);
+            resolve(`https://firebasestorage.googleapis.com/v0/b/${BUCKET}/o/${filename}?alt=media`);
+            
         }catch (e){
             reject(e);
         }
@@ -70,8 +71,6 @@ const sendPushNotification =(token, title, message) => {
             reject(e);
         }
     })
-
-
    
   }
 

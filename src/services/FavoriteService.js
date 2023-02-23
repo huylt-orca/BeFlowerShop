@@ -4,10 +4,11 @@ const db = require ('../models/index');
 let create = (userId, productId) => {
     return new Promise(async (resolve, reject) => {
         try {
-        await db.Favorite.findOrCreate({
+        await db.Favorite.findOrCreate({ 
+            where:{
             userId: userId,
             productId: productId,
-        });
+        }});
         resolve("Create Favorite Successful");
         } catch (e) {
         reject(e);
@@ -15,16 +16,20 @@ let create = (userId, productId) => {
     });
 };
 
-let getAllFavoriteByUserId = (userId) => {
+let getAllFavoriteByUserId = (userId,data) => {
     return new Promise(async (resolve, reject) => {
         try {
-        let data = await db.Favorite.findAll({
+        let favorite = await db.Favorite.findAll({
             where: {
-            userId: userId,
+                userId: userId,
             },
             include: [{ model: db.Product }],
+            raw:true,
+            nest:true,
+            offset: (data.page - 1 ) * data.limit || 0, 
+            limit: parseInt(data.limit) || 10
         });
-        resolve(data);
+        resolve(favorite);
         } catch (e) {
         reject(e);
         }

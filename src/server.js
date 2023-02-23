@@ -3,8 +3,9 @@ const bodyParser = require ("body-parser");
 const route = require ("./route/Route");
 const cors = require('cors');
 
-const swaggerJsDoc = require('swagger-jsdoc');
+// const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('./swagger_output.json');
 
 require('dotenv').config(); // get value from .env
 
@@ -18,21 +19,8 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 app.use('/api',route);
 
-const swaggerOptions = {
-    swaggerDefinition:{
-        info:{
-            title: 'Customer API',
-            description: "Customer API Informations",
-            contact: {
-                name: "Amz"
-            },
-            server: ["http://localhost:8000"]
-        }
-    },
-    apis: ["./route/route.js"]
-};
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerFile));
+
 
 
 
