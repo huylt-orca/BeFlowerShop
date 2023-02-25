@@ -2,6 +2,7 @@ const InvoiceProductService = require("../services/InvoiceProductService");
 
 module.exports = {
   async index(req, res) {
+    // #swagger.ignore = true
     return res.status(200).json({
       status: 200,
       message: "Message",
@@ -10,6 +11,7 @@ module.exports = {
   },
 
   async store(req, res) {
+    // #swagger.ignore = true
     try {
       return res.status(200).json({
         status: 200,
@@ -26,6 +28,7 @@ module.exports = {
 
   async delete(req, res) {
     try {
+      // #swagger.ignore = true
       return res.status(200).json({
         status: 200,
         message: "Message",
@@ -41,6 +44,7 @@ module.exports = {
 
   async update(req, res) {
     try {
+      // #swagger.ignore = true
       return res.status(200).json({
         status: 200,
         message: "Message",

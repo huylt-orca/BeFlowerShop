@@ -19,6 +19,9 @@ let create = (userId, productId) => {
 let getAllFavoriteByUserId = (userId,data) => {
     return new Promise(async (resolve, reject) => {
         try {
+            if (!data.limit){
+                data.limit = 10;
+            }
         let favorite = await db.Favorite.findAll({
             where: {
                 userId: userId,
@@ -27,7 +30,7 @@ let getAllFavoriteByUserId = (userId,data) => {
             raw:true,
             nest:true,
             offset: (data.page - 1 ) * data.limit || 0, 
-            limit: parseInt(data.limit) || 10
+            limit: parseInt(data.limit) 
         });
         resolve(favorite);
         } catch (e) {

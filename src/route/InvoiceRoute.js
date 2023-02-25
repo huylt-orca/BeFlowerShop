@@ -5,7 +5,7 @@ let route =  express.Router();
 
 route.post('/',InvoiceController.create);
 route.get('/:id',InvoiceController.index);
-route.get('/user/:id',InvoiceController.getAllByUserId);
+route.get('/',InvoiceController.getAllByUserId);
 
 
 

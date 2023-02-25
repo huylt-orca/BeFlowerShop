@@ -41,6 +41,7 @@ const uploadImage =  (image) =>{
             resolve(`https://firebasestorage.googleapis.com/v0/b/${BUCKET}/o/${filename}?alt=media`);
             
         }catch (e){
+            console.log(e);
             reject(e);
         }
     })

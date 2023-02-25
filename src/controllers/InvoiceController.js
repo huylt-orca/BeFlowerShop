@@ -3,6 +3,7 @@ const InvoiceService = require("../services/InvoiceService");
 
 module.exports = {
   async index(req, res) {
+    // #swagger.tags = ['Invoice']
     let data = await InvoiceService.getIndex(req.params.id);
     return res.status(200).json({
       status: 200,
@@ -12,8 +13,11 @@ module.exports = {
   },
 
   async create(req, res) {
+    // #swagger.tags = ['Invoice']
     try {
-      await InvoiceService.create(req.body, req.user);
+      const {phone, description,products} = req.body;
+      const {id,quantity} = req.body.products;
+      await InvoiceService.create(req.body, req.query.userId);
       return res.status(200).json({
         status: 200,
         message: "Create Invoice Successful",
@@ -27,8 +31,10 @@ module.exports = {
   },
 
   async getAllByUserId(req, res) {
+    // #swagger.tags = ['Invoice']
     try {
-      let invoices = InvoiceService.getAllByUserId(req.params.id);
+      const {limit,page} = req.query;
+      let invoices = await InvoiceService.getAllByUserId(req.query.userId, req.query);
       return res.status(200).json({
         status: 200,
         message: "Get All Invoice By User Successful",
@@ -37,7 +43,7 @@ module.exports = {
     } catch (err) {
       return res.status(400).json({
         status: 400,
-        message: err,
+        message: "Get All Invoice By User Failed",
       });
     }
   },

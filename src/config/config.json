@@ -5,6 +5,9 @@
     "database": "prm392",
     "host": "127.0.0.1",
     "dialect": "mysql",
+    "dialectOptions": {
+      "timezone": "+07:00" 
+    },
     "logging":true,
     "query": {
       "raw": true

@@ -2,6 +2,7 @@ const ImageService = require("../services/ImageService");
 
 module.exports = {
   async index(req, res) {
+    // #swagger.ignore = true
     return res.status(200).json({
       status: 200,
       message: "Message",
@@ -10,6 +11,7 @@ module.exports = {
   },
 
   async store(req, res) {
+    // #swagger.ignore = true
     try {
       return res.status(200).json({
         status: 200,
@@ -25,6 +27,7 @@ module.exports = {
   },
 
   async delete(req, res) {
+    // #swagger.ignore = true
     try {
       return res.status(200).json({
         status: 200,

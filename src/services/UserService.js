@@ -4,18 +4,17 @@ const Firebase = require('./Firebase');
 const bcrypt = require('bcryptjs');
 const { Op } = require('sequelize');
 
-let createNewUser = async (data) =>{
+let createNewUser = async (data,image) =>{
     return new Promise (async(resolve, reject)=>{
         try {
             let hashPasswordFromBcrypt = await hashUserPassword(data.password);
-            
             await db.User.create({
                 fullname: data.fullname,
                 gender: data.gender,
                 birthday: data.birthday,
                 username: data.username,
                 password: hashPasswordFromBcrypt,
-                image: data.image,
+                image: image,
                 address: data.address,
                 phone: data.phone,
                 role: 1
@@ -43,9 +42,9 @@ let login = (data) =>{
                     let refreshToken = generateRefreshToken(user.id);
                     resolve('Login successful: '+ token +"\n Refresh Token: " + refreshToken);
                 }
-                resolve('Login Failed');
+                reject('Login Failed');
             }
-            resolve('Login Failed'); 
+            reject('Login Failed'); 
         }catch (e){
             reject(e);
         }
@@ -59,21 +58,18 @@ let getAll = (data)=>{
             if (!data.fullname){
                 data.fullname=' ';
             }
-            if (!data.id){
-                data.id=' ';
+            if (!data.limit){
+                data.limit = 10;
             }
             let users = await db.User.findAll({
                 where: {
-                    id: {
-                        [Op.like]: `${data.id.trim()}`
-                    },
                     fullname: {
                         [Op.like]: `%${data.fullname.trim()}%`
                     }
                 },
                 attributes: { exclude: ['password'] },
                 offset: (data.page - 1 ) * data.limit || 0, 
-                limit: parseInt(data.limit) || 10
+                limit: parseInt(data.limit) 
             });
             resolve(users);
             

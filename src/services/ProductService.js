@@ -10,8 +10,8 @@ let getAll = (data)=>{
             if (!data.category){
                 data.category='%';
             }
-            if (!data.id){
-                data.id = '%';
+            if (!data.limit){
+                data.limit = 10;
             }
 
             let products = await db.Product.findAll({
@@ -26,16 +26,11 @@ let getAll = (data)=>{
                             categoryId:{
                                 [Op.like]: `${data.category}`
                             }
-                        },
-                        {
-                            id:{
-                                [Op.like]: `${data.id}`
-                            }
                         }
                     ]
                 },
                 offset: (data.page - 1 ) * data.limit || 0, 
-                limit: data.limit || 10
+                limit: data.limit 
             });
             resolve(products);
         }catch (e){

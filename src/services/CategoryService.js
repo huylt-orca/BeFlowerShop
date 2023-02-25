@@ -7,6 +7,9 @@ let getAll = (data)=>{
             if (!data.name){
                 data.name=' ';
             }
+            if (!data.limit){
+                data.limit = 10;
+            }
             let categories = await db.Category.findAll({
                 where: {
                     name:{
@@ -14,7 +17,7 @@ let getAll = (data)=>{
                     }
                 },
                 offset: (data.page - 1 ) * data.limit || 0, 
-                limit: parseInt(data.limit) || 10
+                limit: parseInt(data.limit) 
             });
             resolve(categories);
         }catch (e){
@@ -40,7 +43,7 @@ let create = (data)=>{
 let update = (data) =>{
     return new Promise (async(resolve, reject)=>{
         try {
-            let category = await db.Category.update({
+            await db.Category.update({
                 name: data.name,
                 description: data.description
             }, {
@@ -48,7 +51,7 @@ let update = (data) =>{
                     id: data.id
                 }
             });
-            resolve(category);
+            resolve("Update Category Successful");
         }catch (e){
             reject(e);
         }

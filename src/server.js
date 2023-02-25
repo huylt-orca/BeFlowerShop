@@ -10,7 +10,15 @@ const swaggerFile = require('./swagger_output.json');
 require('dotenv').config(); // get value from .env
 
 let app = express();
-app.use(cors({origin: true}));
+
+const corsOptions = {
+    origin: 'http://localhost:8080/api',
+    optionsSuccessStatus: 200
+  }
+  
+  app.use(cors(corsOptions));
+
+// app.use(cors({origin: true}));
 
 // config app
 

@@ -15,12 +15,7 @@ let addProductToCart = (userId, data) => {
             productId: data.productId,
             quantity: data.quantity
             });
-        } else { console.log('-1');
-            // cart.quantity = data.quantity;
-            // await cart.save();
-            // cart.update({quantity: data.quantity}).then(()=>{
-            //     console.log('heeloo');
-            // }).catch((err)=>{ console.log(err)});
+        } else { 
             await db.Cart.update({
                 quantity: data.quantity
             },{
@@ -40,6 +35,9 @@ let addProductToCart = (userId, data) => {
 let getAllProductByUserId = (userId,data) => {
     return new Promise(async (resolve, reject) => {
         try {
+            if (!data.limit){
+                data.limit = 10;
+            }
         let cart = await db.Cart.findAll({
             where: {
             userId: userId,
@@ -48,7 +46,7 @@ let getAllProductByUserId = (userId,data) => {
             raw:true,
             nest:true,
             offset: (data.page - 1 ) * data.limit || 0, 
-            limit: parseInt(data.limit) || 10
+            limit: parseInt(data.limit) 
         });
         resolve(cart);
         } catch (e) {

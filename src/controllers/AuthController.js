@@ -40,6 +40,7 @@ module.exports = {
   },
   
    async getNewTokenFromRefreshToken(req, res){
+    // #swagger.tags = ['Auth']
     let refreshToken = req.body.refreshToken;
     let tokenGet = Utils.getDataFromRefreshToken(refreshToken);
     let token = Utils.generateToken(tokenGet.data);

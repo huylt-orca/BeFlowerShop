@@ -3,7 +3,9 @@ const FavoriteService = require("../services/FavoriteService");
 module.exports = {
 
   async create(req, res) {
+    // #swagger.tags = ['Favorite']
     try {
+
       await FavoriteService.create(req.query.userId,req.body.productId);
 
       return res.status(200).json({
@@ -13,12 +15,13 @@ module.exports = {
     } catch (err) {
       return res.status(400).json({
         status: 400,
-        message: err,
+        message: "Create Favorite Failed",
       });
     }
   },
 
   async delete(req, res) {
+    // #swagger.tags = ['Favorite']
     try {
       await FavoriteService.remove(req.query.userId,req.params.productId);
 
@@ -29,24 +32,26 @@ module.exports = {
     } catch (err) {
       return res.status(400).json({
         status: 400,
-        message: err,
+        message: "Remove Favorite Failed",
       });
     }
   },
 
   async getAllFavoriteByUserId(req, res) {
+    // #swagger.tags = ['Favorite']
     try {
-      let data = await FavoriteService.getAllFavoriteByUserId(req.query.userId,req.query);
+      const {page,limit} = req.query;
+      let favorites = await FavoriteService.getAllFavoriteByUserId(req.query.userId,req.query);
 
       return res.status(200).json({
         status: 200,
-        message: "Get Favorite list by userID successful",
-        data: data,
+        message: "Get Favorite list by userID Successful",
+        data: favorites,
       });
     } catch (err) {
       return res.status(400).json({
         status: 400,
-        message: err,
+        message: "Get Favorite list by userID Failed",
       });
     }
   },

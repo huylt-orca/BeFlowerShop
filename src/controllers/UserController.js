@@ -3,35 +3,58 @@ const {getDataFromToken, getDataFromRefreshToken, generateToken} = require("../u
 const Firebase = require('../services/Firebase');
 
 module.exports = {
-  async login(req, res) {
-    let data = await UserService.login(req.body);
-    return res.status(200).json({
-      status: 200,
-      message: "Login",
-      data: data,
-    });
+  async login(req, res) { 
+    // #swagger.tags = ['Users']
+    try {
+      const {username, password} = req.body;
+      let data = await UserService.login(req.body);
+      return res.status(200).json({
+        status: 200,
+        message: "Login Successful",
+        data: data,
+      });
+    } catch (err){
+      return res.status(400).json({
+        status: 200,
+        message: "Login Failed",
+      });
+    }
+    
   },
 
   async signup(req, res) {
-    
+    // #swagger.tags = ['Users']
+    /*
+          #swagger.consumes = ['multipart/form-data']  
+          #swagger.parameters['image'] = {
+              in: 'formData',
+              type: 'file',
+              required: 'false',
+        } */
     try {
-      req.body.image = await Firebase.uploadImage(req.file);
-      let data = await UserService.createNewUser(req.body);
+      const{fullname, gender,birthday,username,password, address,phone} = req.body;
+      let image="https://firebasestorage.googleapis.com/v0/b/prmflowershop.appspot.com/o/person.png?alt=media";
+      if (req.file){ 
+        image = await Firebase.uploadImage(req.file); 
+      }
+      let data = await UserService.createNewUser(req.body,image);
       return res.status(200).json({
         status: 200,
-        message: "Signup",
+        message: "Signup Successful",
         data: data,
       });
     } catch (err) {
       return res.status(400).json({
         status: 400,
-        message: err,
+        message: "Signup Failed",
       });
     }
   },
 
   async getAll(req, res) {
+    // #swagger.tags = ['Users']
     try {
+      const {page,limit,fullname,id} = req.query;
       let data = await UserService.getAll(req.query);
       return res.status(200).json({
         status: 200,
@@ -41,12 +64,20 @@ module.exports = {
     } catch (err) {
       return res.status(400).json({
         status: 400,
-        message: err,
+        message: "Get All User Failed",
       });
     }
   },
 
   async update(req, res) {
+    // #swagger.tags = ['Users']
+        /*
+          #swagger.consumes = ['multipart/form-data']  
+          #swagger.parameters['image'] = {
+              in: 'formData',
+              type: 'file',
+              required: 'false',
+        } */
     try {
       if (req.file){
         req.body.image = await Firebase.uploadImage(req.file);
@@ -60,7 +91,7 @@ module.exports = {
     } catch (err) {
       return res.status(400).json({
         status: 400,
-        message: err,
+        message: "Update User Failed",
       });
     }
   },
