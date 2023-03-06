@@ -11,8 +11,18 @@ require('dotenv').config(); // get value from .env
 
 let app = express();
 
+const allowedOrigins = ['http://localhost:3000', 'http://localhost:8080/api'];
+
 const corsOptions = {
-    origin: 'http://localhost:8080/api',
+    origin: function(origin, callback) {
+      // Kiểm tra xem origin có nằm trong danh sách các domain cho phép không
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
     optionsSuccessStatus: 200
   }
   
