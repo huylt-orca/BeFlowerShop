@@ -11,7 +11,7 @@ require('dotenv').config(); // get value from .env
 
 let app = express();
 
-const allowedOrigins = ['http://localhost:3000', 'http://localhost:8080/api'];
+const allowedOrigins = ['http://localhost:3000', 'http://localhost:8080'];
 
 const corsOptions = {
     origin: function(origin, callback) {

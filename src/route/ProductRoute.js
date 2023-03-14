@@ -14,7 +14,7 @@ let route =  express.Router();
 
 route.post('/testUpload',Multer.single("image"),ProductController.testUpload)
 
-route.post('/',Multer.array('image'),ProductController.create);
+route.post('/',Multer.array('images'),ProductController.create);
 route.put('/',ProductController.update);
 route.delete('/:id',ProductController.delete);
 route.get('/:id',ProductController.index);

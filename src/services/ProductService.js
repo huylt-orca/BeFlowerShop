@@ -41,7 +41,7 @@ let getAll = (data)=>{
 
 let create = (data,listImage)=>{
     return new Promise( async(resolve,reject)=>{
-        try {
+        try { 
             const product = await db.Product.create({
                 name: data.name,
                 quantity:data.quantity,
