@@ -75,7 +75,7 @@ module.exports = {
       if (req.file){
         req.body.image = await Firebase.uploadImage(req.file);
       }
-      let data = await UserService.update(req.body,req.body.id);
+      let data = await UserService.update(req.body,req.params.id);
       return res.status(200).json({
         status: 200,
         message: "Update User Successful",

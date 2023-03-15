@@ -38,17 +38,24 @@ let getAllProductByUserId = (userId,data) => {
             if (!data.limit){
                 data.limit = 10;
             }
-        let cart = await db.Cart.findAll({
-            where: {
-            userId: userId,
-            },
-            include: [{ model: db.Product }],
+
+        let tmp = await db.Product.findAll({
+            include:[{
+                model: db.Cart,
+                where:{userId: userId}
+            }],
             raw:true,
             nest:true,
             offset: (data.page - 1 ) * data.limit || 0, 
-            limit: parseInt(data.limit) 
-        });
-        resolve(cart);
+            limit: parseInt(data.limit)
+        })
+
+        for (let i = 0; i< tmp.length; i++){
+            let tmpImage = await db.Image.findOne({where:{ productId: tmp[i].id}});
+            tmp[i].image = tmpImage == null ? "" : tmpImage.url ;
+            delete tmp.Carts;
+        }
+        resolve(tmp);
         } catch (e) {
         reject(e);
         }

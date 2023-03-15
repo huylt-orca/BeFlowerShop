@@ -33,8 +33,8 @@ module.exports = {
   async update(req, res) {
     // #swagger.tags = ['Category']
     try {
-      const {id,name,description} = req.body;
-      CategoryService.update(req.body);
+      const {name,description} = req.body;
+      CategoryService.update(req.body, req.params.id);
       return res.status(200).json({
         status: 200,
         message: "Update Category Successful"

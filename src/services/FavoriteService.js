@@ -24,16 +24,25 @@ let getAllFavoriteByUserId = (userId,data) => {
             } else {
                 data.limit = parseInt(data.limit);
             }
-        let favorite = await db.Favorite.findAll({
-            where: {
-                userId: userId,
-            },
-            include: [{ model: db.Product }],
+
+        let favorite = await db.Product.findAll({
+            include: [{ model: db.Favorite, 
+                where: {
+                    userId: userId,
+                }, 
+            }],
             raw:true,
             nest:true,
             offset: (data.page - 1 ) * data.limit || 0, 
             limit: data.limit
         });
+        
+        for(let i =0; i < favorite.length; i++){
+            let tmpImage = await db.Image.findOne({where:{productId: favorite[i].id}});
+            favorite[i].image = tmpImage == null ? "" : tmpImage.url;
+            delete(favorite[i].Favorites);
+        }
+
         resolve(favorite);
         } catch (e) {
         reject(e);

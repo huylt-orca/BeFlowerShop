@@ -42,7 +42,7 @@ let create = (data)=>{
     })
 };
 
-let update = (data) =>{
+let update = (data,id) =>{
     return new Promise (async(resolve, reject)=>{
         try {
             await db.Category.update({
@@ -50,7 +50,7 @@ let update = (data) =>{
                 description: data.description
             }, {
                 where: {
-                    id: data.id
+                    id: id
                 }
             });
             resolve("Update Category Successful");

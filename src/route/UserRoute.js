@@ -19,7 +19,7 @@ route.get("/getUserByAccessToken",AuthController.authentication,UserController.g
 route.post('/signup',Multer.single('image'),UserController.signup);
 route.post('/login',UserController.login);
 route.get("/:id",UserController.index);
-route.put('/',Multer.single('image'),UserController.update);
+route.put('/:id',Multer.single('image'),UserController.update);
 route.get('/',UserController.getAll);
 
 // route.get('/:token',AuthController.authentication,UserController.getAll);

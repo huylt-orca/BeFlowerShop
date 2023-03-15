@@ -75,7 +75,6 @@ let checkProducts = (data) =>{
         let newData={};
         newData.total = 0;
         newData.listProduct =[];
-        console.log("New");
         data.forEach(async(product) =>  {
             let tmp = await db.Product.findOne({
                 where:{
@@ -111,18 +110,25 @@ let getIndex = (invoiceId) =>{
     return new Promise(async(resolve, reject)=>{
         try{
             let invoice = await db.Invoice.findByPk(invoiceId);
-            let products = await db.InvoiceProduct.findAll({
-                where:{
-                    invoiceId: invoiceId
-                },
+            let products = await db.Product.findAll({
                 include:[
                     {
-                        model: db.Product
+                        model: db.InvoiceProduct,
+                        where:{
+                            invoiceId: invoiceId
+                        },
                     }
                 ],
                 raw:true,
                 nest:true,
             })
+
+            for (let i = 0; i< products.length; i++){
+                products[i].quantity =  products[i].InvoiceProducts.quantity;
+                products[i].price = products[i].InvoiceProducts.price;
+                delete products[i].InvoiceProducts;
+            }
+
             invoice.products = products;
             resolve(invoice);
         }catch(e){

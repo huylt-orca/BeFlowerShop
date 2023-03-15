@@ -35,6 +35,13 @@ let getAll = (data)=>{
                 offset: (data.page - 1 ) * data.limit || 0, 
                 limit: data.limit 
             });
+
+
+            for (let i = 0; i< products.length; i++){
+                let tmpImage = await db.Image.findOne({where:{ productId: products[i].id}});
+                products[i].image = tmpImage == null ? "" : tmpImage.url ;
+            }
+
             resolve(products);
         }catch (e){
             reject(e);
@@ -105,6 +112,8 @@ let getProductById = (id) =>{
                     id:id
                 }
             });
+             let tmpImage = await db.Image.findOne({ where:{productId:product.id}});
+             product.image = tmpImage == null ? "" : tmpImage.url
             resolve(product);
         }catch (e){
             reject(e);

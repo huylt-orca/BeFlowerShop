@@ -154,41 +154,6 @@
           }
         }
       },
-      "put": {
-        "tags": [
-          "Category"
-        ],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "example": "any"
-                  },
-                  "name": {
-                    "example": "any"
-                  },
-                  "description": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
       "get": {
         "tags": [
           "Category"
@@ -220,6 +185,49 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/categories/{id}": {
+      "put": {
+        "tags": [
+          "Category"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "example": "any"
+                  },
+                  "description": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -793,15 +801,22 @@
             "description": "Bad Request"
           }
         }
-      }
-    },
-    "/users/": {
+      },
       "put": {
         "tags": [
           "Users"
         ],
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -818,16 +833,15 @@
                 "properties": {
                   "image": {
                     "example": "any"
-                  },
-                  "id": {
-                    "example": "any"
                   }
                 }
               }
             }
           }
         }
-      },
+      }
+    },
+    "/users/": {
       "get": {
         "tags": [
           "Users"
