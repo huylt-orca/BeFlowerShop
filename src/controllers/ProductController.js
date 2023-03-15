@@ -59,8 +59,8 @@ module.exports = {
   async update(req, res) {
     // #swagger.tags = ['Products']
     try {
-      const{id,name,description,status,price,categoryId} = req.body;
-      await ProductService.update(req.body);
+      const{name,description,status,price,categoryId} = req.body;
+      await ProductService.update(req.body,req.params.id);
       return res.status(200).json({
         status: 200,
         message: "Update Product Successful",

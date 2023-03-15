@@ -6,13 +6,15 @@ let getAllByUserId = (userId,data)=>{
         try {
             if (!data.limit){
                 data.limit = 10;
+            }else {
+                data.limit = parseInt(data.limit);
             };
             let invoices = await db.Invoice.findAll({
                 where:{
                     userId: parseInt(userId)
                 },
                 offset: (data.page - 1 ) * data.limit || 0, 
-                limit: parseInt(data.limit)
+                limit: data.limit
             });
             resolve(invoices);
         }catch (e){

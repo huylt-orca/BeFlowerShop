@@ -12,8 +12,11 @@ let getAll = (data)=>{
             }
             if (!data.limit){
                 data.limit = 10;
+            } else {
+                data.limit = parseInt(data.limit);
             }
 
+           
             let products = await db.Product.findAll({
                 where: {
                     [Op.and]:[
@@ -65,7 +68,7 @@ let create = (data,listImage)=>{
     })
 }
 
-let update = (data) =>{
+let update = (data,id) =>{
     return new Promise(async(resolve, reject)=>{
         try {
             if (data.quantity < 0){
@@ -84,7 +87,7 @@ let update = (data) =>{
                 categoryId:data.categoryId 
             },{
                 where:{
-                    id: data.id
+                    id: id
                 }
             });
             resolve("Update Product Successful");

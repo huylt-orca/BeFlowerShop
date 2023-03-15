@@ -9,6 +9,8 @@ let getAll = (data)=>{
             }
             if (!data.limit){
                 data.limit = 10;
+            }else {
+                data.limit = parseInt(data.limit);
             }
             let categories = await db.Category.findAll({
                 where: {
@@ -17,7 +19,7 @@ let getAll = (data)=>{
                     }
                 },
                 offset: (data.page - 1 ) * data.limit || 0, 
-                limit: parseInt(data.limit) 
+                limit: data.limit
             });
             resolve(categories);
         }catch (e){

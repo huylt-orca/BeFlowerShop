@@ -20,7 +20,7 @@ let hashUserPassword = (password)=>{
 let generateToken = (data) => {
    
     return jwt.sign({data:data}, secretKey, {
-        expiresIn: 60,
+        expiresIn: 60 * 60,
     });
 }
 

@@ -21,6 +21,8 @@ let getAllFavoriteByUserId = (userId,data) => {
         try {
             if (!data.limit){
                 data.limit = 10;
+            } else {
+                data.limit = parseInt(data.limit);
             }
         let favorite = await db.Favorite.findAll({
             where: {
@@ -30,7 +32,7 @@ let getAllFavoriteByUserId = (userId,data) => {
             raw:true,
             nest:true,
             offset: (data.page - 1 ) * data.limit || 0, 
-            limit: parseInt(data.limit) 
+            limit: data.limit
         });
         resolve(favorite);
         } catch (e) {

@@ -71,13 +71,6 @@ module.exports = {
 
   async update(req, res) {
     // #swagger.tags = ['Users']
-        /*
-          #swagger.consumes = ['multipart/form-data']  
-          #swagger.parameters['image'] = {
-              in: 'formData',
-              type: 'file',
-              required: 'false',
-        } */
     try {
       if (req.file){
         req.body.image = await Firebase.uploadImage(req.file);
@@ -95,6 +88,38 @@ module.exports = {
       });
     }
   },
+  async getUserByToken(req,res){
+    // #swagger.tags = ['Users']
+    try {
+      return res.status(200).json({
+        status: 200,
+        message: "Get User Successful",
+        data: req.user,
+      });
+    }catch(err){
+      return res.status(400).json({
+        status: 400,
+        message: "Get User Failed",
+      });
+    }
+
+  },
+  async index(req,res){
+    // #swagger.tags = ['Users']
+    try {
+      let data = await UserService.getIndex(req.params.id);
+      return res.status(200).json({
+        status: 200,
+        message: "Get User Successful",
+        data: data,
+      });
+    }catch(err){
+      return res.status(400).json({
+        status: 400,
+        message: "Get User Failed",
+      });
+    }
+  }
 
 
 };

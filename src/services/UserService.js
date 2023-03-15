@@ -40,7 +40,8 @@ let login = (data) =>{
                 if (check){
                     let token = generateToken(user.id);
                     let refreshToken = generateRefreshToken(user.id);
-                    resolve('Login successful: '+ token +"\n Refresh Token: " + refreshToken);
+                    // resolve('Login successful: '+ token +"\n Refresh Token: " + refreshToken);
+                    resolve(token);
                 }
                 reject('Login Failed');
             }
@@ -60,6 +61,8 @@ let getAll = (data)=>{
             }
             if (!data.limit){
                 data.limit = 10;
+            }else {
+                data.limit = parseInt(data.limit);
             }
             let users = await db.User.findAll({
                 where: {
