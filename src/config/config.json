@@ -1,9 +1,9 @@
 {
   "development": {
     "username": "root",
-    "password": "123456",
+    "password": "12345678",
     "database": "prm392",
-    "host": "127.0.0.1",
+    "host":"prm.crlel9tl7gzq.ap-southeast-1.rds.amazonaws.com",
     "dialect": "mysql",
     "dialectOptions": {
       "timezone": "+07:00" 
