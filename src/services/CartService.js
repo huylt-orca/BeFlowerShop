@@ -78,8 +78,24 @@ let removeProductToCart = (userId, productId) =>{
       });
 }
 
+let cleanCart = (userId) =>{
+    return new Promise(async (resolve, reject) => {
+        try {
+           await db.Cart.destroy({
+            where: {
+              userId: userId,
+            }
+          });
+          resolve("Remove Product To Cart Successful");
+        } catch (e) {
+          reject(e);
+        }
+      });
+}
+
 module.exports = {
     getAllProductByUserId: getAllProductByUserId,
     addProductToCart: addProductToCart,
-    removeProductToCart:removeProductToCart
+    removeProductToCart:removeProductToCart,
+    cleanCart
 };

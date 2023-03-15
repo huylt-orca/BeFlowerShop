@@ -12,6 +12,10 @@ const userRoute = require('./UserRoute');
 
 const notificationController = require('../controllers/NotificationController');
 
+const createPayRoute = require('./CreatePayRoute');
+const createPaySuccessRoute = require('./PaySuccessRoute');
+const createPayCancelRoute = require('./PayCancelRoute');
+
 
 let router = express();
 
@@ -24,6 +28,12 @@ router.use('/invoices',invoiceRoute);
 router.use('/products',productRoute);
 router.use('/users',userRoute);
 router.post('/notification',notificationController.create);
+
+router.use('/pay',createPayRoute);
+router.use('/success',createPaySuccessRoute);
+router.use('/cancel',createPayCancelRoute);
+
+
 
 
 

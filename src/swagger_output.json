@@ -886,6 +886,90 @@
           }
         }
       }
+    },
+    "/pay/": {
+      "post": {
+        "tags": [
+          "Payment"
+        ],
+        "description": "payment by paypal",
+        "parameters": [],
+        "responses": {},
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "example": "any"
+                  },
+                  "data": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/success/": {
+      "get": {
+        "tags": [
+          "Payment"
+        ],
+        "description": "  by paypal",
+        "parameters": [
+          {
+            "name": "PayerID",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "paymentId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "total",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userID",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/cancel/": {
+      "get": {
+        "tags": [
+          "Payment"
+        ],
+        "description": "payment by paypal",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
