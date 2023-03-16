@@ -26,21 +26,21 @@ let user = [
 
 // name, description
 let category = [
-    {name:'Roses',description:''}, 
-    {name:'Peonies',description:''}, 
-    {name:'Tulips',description:''}, 
-    {name:'Daisies',description:''}, 
-    {name:'Alstroemerias',description:''}, 
-    {name:'Liles',description:''}, 
-    {name:'Orchids',description:''}, 
-    {name:'Irises',description:''}, 
-    {name:'Hydrangeas',description:''}, 
-    {name:'Gerberas',description:''}, 
-    {name:'Lisianthuses',description:''}, 
-    {name:'Carnations',description:''}, 
-    {name:'Callas',description:''}, 
-    {name:'Sunflowers',description:''}, 
-    {name:'Exotic flowers',description:''}, 
+    {name:'Roses',description:'Flower are so beautiful'}, 
+    {name:'Peonies',description:'Flower are so beautiful'}, 
+    {name:'Tulips',description:'Flower are so beautiful'}, 
+    {name:'Daisies',description:'Flower are so beautiful'}, 
+    {name:'Alstroemerias',description:'Flower are so beautiful'}, 
+    {name:'Liles',description:'Flower are so beautiful'}, 
+    {name:'Orchids',description:'Flower are so beautiful'}, 
+    {name:'Irises',description:'Flower are so beautiful'}, 
+    {name:'Hydrangeas',description:'Flower are so beautiful'}, 
+    {name:'Gerberas',description:'Flower are so beautiful'}, 
+    {name:'Lisianthuses',description:'Flower are so beautiful'}, 
+    {name:'Carnations',description:'Flower are so beautiful'}, 
+    {name:'Callas',description:'Flower are so beautiful'}, 
+    {name:'Sunflowers',description:'Flower are so beautiful'}, 
+    {name:'Exotic flowers',description:'Flower are so beautiful'}, 
 ];
 
 
