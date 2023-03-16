@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require ("body-parser");
 const route = require ("./route/Route");
 const cors = require('cors');
-
+const paypal = require("paypal-rest-sdk");
 // const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./swagger_output.json');
@@ -31,6 +31,14 @@ const corsOptions = {
 // app.use(cors({origin: true}));
 
 // config app
+
+paypal.configure({
+  mode: "sandbox", //sandbox or live
+  client_id:
+    "AYAzJhgEv8eAYdypu-Q_9N06vD2JcR5qeRkz6G32J7nVJ6MCvEF7fCr4KIgAGocKfxzLk5RI33aHarDG",
+  client_secret:
+    "EB5yajw5uYXV53u27wrY_wg3DFSSSfAmRj1we1ZElIjZO8z1Dt1jRFpzQq0iFGZA3bquSHKf_QyDwove",
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
