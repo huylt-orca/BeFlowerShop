@@ -28,7 +28,7 @@ module.exports = {
           sku: item.id,
           price: item.price,
           currency: "USD",
-          quantity: item.Carts.quantity,
+          quantity: item.quantity,
         };
       });
       let total = items.reduce(((accumulator, item)=>{
