@@ -894,7 +894,11 @@
         ],
         "description": "payment by paypal",
         "parameters": [],
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
         "requestBody": {
           "content": {
             "application/json": {

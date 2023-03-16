@@ -44,8 +44,8 @@ module.exports = {
           payment_method: "paypal",
         },
         redirect_urls: {
-          return_url: `http://localhost:8080/api/success/?total=${total}&userID=${userId}`,
-          cancel_url: "http://localhost:8080/api/cancel",
+          return_url: `http://10.0.2.2:8080/api/success/?total=${total}&userID=${userId}`,
+          cancel_url: "http://10.0.2.2:8080/api/cancel",
           //   return_url: `https://ec2-3-0-97-134.ap-southeast-1.compute.amazonaws.com:8080/success?idpayment=${idpayment.idpayment}&idorder=${idorder}`,
           //   cancel_url: `https://ec2-3-0-97-134.ap-southeast-1.compute.amazonaws.com:8080/cancel`,
         },
@@ -88,7 +88,10 @@ module.exports = {
           for (let i = 0; i < payment.links.length; i++) {
             if (payment.links[i].rel === "approval_url") {
               console.log(payment.links[i].href);
-              res.redirect(payment.links[i].href);
+              // res.redirect(payment.links[i].href);
+              res.status(200).json({
+                "message": payment.links[i].href
+              });
             }
           }
         }

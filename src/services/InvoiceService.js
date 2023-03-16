@@ -40,11 +40,11 @@ let create = (data,userId)=>{
                 await db.InvoiceProduct.create({
                     invoiceId: invoice.id,
                     productId: product.id,
-                    quantity: product.quantity,
+                    quantity: product.Carts.quantity,
                     price: newData.listProduct[index].price
                 });
                 await db.Product.update({
-                    quantity: Sequelize.literal(`quantity - ${product.quantity}`) 
+                    quantity: Sequelize.literal(`quantity - ${product.Carts.quantity}`) 
                 },
                 {
                     where:{
@@ -84,7 +84,7 @@ let checkProducts = (data) =>{
                         },
                         {
                             quantity: {
-                                [Op.gte]:product.quantity
+                                [Op.gte]:product.Carts.quantity
                             }
                         },
                         {
