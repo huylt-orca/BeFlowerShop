@@ -1,4 +1,4 @@
-const { Op } = require('sequelize');
+const { Op,Sequelize } = require('sequelize');
 const db = require ('../models/index');
 
 let getAll = (data)=>{
@@ -87,7 +87,7 @@ let update = (data,id) =>{
 
             await db.Product.update({
                 name: data.name,
-                quantity: data.quantity,
+                quantity: Sequelize.literal(`quantity + ${data.quantity}`) ,
                 price: data.price,
                 description: data.description,
                 status: data.status,

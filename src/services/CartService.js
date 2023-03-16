@@ -1,3 +1,4 @@
+const { Op, Sequelize } = require('sequelize');
 const db = require("../models/index");
 
 let addProductToCart = (userId, data) => {
@@ -17,7 +18,7 @@ let addProductToCart = (userId, data) => {
             });
         } else { 
             await db.Cart.update({
-                quantity: data.quantity
+                quantity: Sequelize.literal(`quantity + ${parseInt(data.quantity)}`) 
             },{
                 where:{
                     userId: userId,
@@ -51,9 +52,10 @@ let getAllProductByUserId = (userId,data) => {
         })
 
         for (let i = 0; i< tmp.length; i++){
+            tmp[i].quantity = tmp[i].Carts.quantity;
             let tmpImage = await db.Image.findOne({where:{ productId: tmp[i].id}});
             tmp[i].image = tmpImage == null ? "" : tmpImage.url ;
-            delete tmp.Carts;
+            delete tmp[i].Carts;
         }
         resolve(tmp);
         } catch (e) {
@@ -78,8 +80,35 @@ let removeProductToCart = (userId, productId) =>{
       });
 }
 
+let getProductInCart = (userId, productId) =>{
+    return new Promise(async (resolve, reject) => {
+        try {
+          let product = await db.Product.findOne({
+            where:{
+                id: parseInt(productId)
+            },
+            include:[{
+                model: db.Cart,
+                where:{userId: parseInt(userId),}
+            }],
+            
+            raw:true,
+            nest:true,
+        });
+        // console.log(product.Carts.quantity);
+            product.quantity = product.Carts.quantity;
+            delete product.Carts;
+
+          resolve(product);
+        } catch (e) {
+          reject(e);
+        }
+      });
+}
+
 module.exports = {
     getAllProductByUserId: getAllProductByUserId,
     addProductToCart: addProductToCart,
-    removeProductToCart:removeProductToCart
+    removeProductToCart:removeProductToCart,
+    getProductInCart:getProductInCart
 };

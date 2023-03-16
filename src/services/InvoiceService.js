@@ -39,7 +39,7 @@ let create = (data,userId)=>{
             data.products.forEach(async (product,index) =>{
                 await db.InvoiceProduct.create({
                     invoiceId: invoice.id,
-                    productId: product.id,
+                    productId: product.productId,
                     quantity: product.quantity,
                     price: newData.listProduct[index].price
                 });
@@ -48,10 +48,16 @@ let create = (data,userId)=>{
                 },
                 {
                     where:{
-                        id: product.id
+                        id: product.productId
                     }
                 } 
-                )
+                );
+                await db.Cart.destroy({
+                    where: {
+                      userId: userId,
+                      productId:product.productId
+                }
+            })
             })
 
             await db.Invoice.update({
@@ -80,7 +86,7 @@ let checkProducts = (data) =>{
                 where:{
                     [Op.and]:[
                         {
-                            id: product.id 
+                            id: product.productId 
                         },
                         {
                             quantity: {
