@@ -1,6 +1,7 @@
 const paypal = require("paypal-rest-sdk");
 const Firebase = require("../services/Firebase");
 const CartService = require("../services/CartService");
+const db = require("../models/index");
 
 // const PayService = require("../services/PayService");
 // const OrderService = require("../services/OrderService");
@@ -19,6 +20,7 @@ module.exports = {
       // const idorder = req.query.idorder;
       const total = req.query.total;
       const userID = req.query.userID;
+      const id = req.query.id;
 
       // const total = await PayService.getPayment(idpayment);
       const execute_payment_json = {
@@ -43,7 +45,17 @@ module.exports = {
             // console.log(JSON.stringify(payment));
             console.log("________mua hang thanh cong");
             //set lai cart
-            // CartService.cleanCart(userID);
+            await db.Invoice.update(
+              {
+                price: total,
+              },
+              {
+                where: {
+                  id: id,
+                },
+              }
+            );
+            CartService.cleanCart(userID);
             // Firebase.pushNoti()
             res.send("Success (Mua hàng thành công)");
           }

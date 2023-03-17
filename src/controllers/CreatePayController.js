@@ -20,7 +20,7 @@ module.exports = {
 
       // let idpayment = await PayService.createPayment(idorder,total,"paypal")
       const items_cart = await Cart.getAllProductByUserId(userId, data);
-      await Invoice.create(data, userId);
+      const invoiceId = await Invoice.create(data, userId);
 
       let items = items_cart.map((item, index, array) => {
         return {
@@ -35,8 +35,8 @@ module.exports = {
         return accumulator + item.price*item.quantity
       }),0);
 
-      console.log(items);
-      console.log(total);
+      // console.log(items);
+      // console.log(total);
 
       const create_payment_json = {
         intent: "sale",
@@ -44,7 +44,7 @@ module.exports = {
           payment_method: "paypal",
         },
         redirect_urls: {
-          return_url: `http://10.0.2.2:8080/api/success/?total=${total}&userID=${userId}`,
+          return_url: `http://10.0.2.2:8080/api/success/?total=${total}&userID=${userId}&id=${invoiceId}`,
           cancel_url: "http://10.0.2.2:8080/api/cancel",
           //   return_url: `https://ec2-3-0-97-134.ap-southeast-1.compute.amazonaws.com:8080/success?idpayment=${idpayment.idpayment}&idorder=${idorder}`,
           //   cancel_url: `https://ec2-3-0-97-134.ap-southeast-1.compute.amazonaws.com:8080/cancel`,
