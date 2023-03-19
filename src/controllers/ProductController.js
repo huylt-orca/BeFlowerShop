@@ -15,7 +15,7 @@ module.exports = {
 
   async getAll(req, res) {
     // #swagger.tags = ['Products']
-    const {limit,page,name,categoryId} = req.query;
+    const {limit,page,name,categoryId,status} = req.query;
     let products = await ProductService.getAll(req.query);
 
     return res.status(200).json({
@@ -59,7 +59,7 @@ module.exports = {
   async update(req, res) {
     // #swagger.tags = ['Products']
     try {
-      const{name,description,status,price,categoryId} = req.body;
+      const{name,description,status,price,categoryId,quantity} = req.body;
       await ProductService.update(req.body,req.params.id);
       return res.status(200).json({
         status: 200,
@@ -77,10 +77,9 @@ module.exports = {
     // #swagger.tags = ['Products']
     try {
       let data = {
-        id: req.params.id,
         status:0
       };
-      await ProductService.update(data);
+      await ProductService.update(data,req.params.id);
       return res.status(200).json({
         status: 200,
         message: "Delete Product Successful",

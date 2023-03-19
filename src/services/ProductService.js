@@ -15,7 +15,9 @@ let getAll = (data)=>{
             } else {
                 data.limit = parseInt(data.limit);
             }
-
+            if (!data.status){
+                data.status='%';
+            }
            
             let products = await db.Product.findAll({
                 where: {
@@ -28,6 +30,11 @@ let getAll = (data)=>{
                         {
                             categoryId:{
                                 [Op.like]: `${data.category}`
+                            }
+                        },
+                        {
+                            status:{
+                                [Op.like]: `${data.status}`
                             }
                         }
                     ]
@@ -78,7 +85,8 @@ let create = (data,listImage)=>{
 let update = (data,id) =>{
     return new Promise(async(resolve, reject)=>{
         try {
-            if (data.quantity < 0){
+            
+            if (!data.quantity){
                 data.quantity = 0;
             }
             if (data.price < 0){
