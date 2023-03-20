@@ -150,8 +150,47 @@ let getIndex = (invoiceId) => {
   });
 };
 
+let getAllByDate = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!data.limit) {
+        data.limit = null; 
+      } else {
+        data.limit = parseInt(data.limit);
+      }
+      if (!data.ascending){
+        data.ascending ='DESC'
+      }
+      if (!data.startDate){
+        data.startDate = '2020-01-01';
+      }
+      if (!data.endDate){
+        data.endDate = new Date();
+      }
+
+      let invoices = await db.Invoice.findAll({
+        where: {
+          createDate: {
+            [Op.between]: [data.startDate, data.endDate]
+          }
+        },
+        order: [
+          ['createDate', data.ascending]
+        ],
+        offset: (data.page - 1) * data.limit || 0,
+        limit: data.limit,
+      });
+      
+      resolve(invoices);
+    } catch (e) {
+      reject(e);
+    }
+  });
+}
+
 module.exports = {
   getAllByUserId: getAllByUserId,
   create: create,
   getIndex: getIndex,
+  getAllByDate: getAllByDate
 };

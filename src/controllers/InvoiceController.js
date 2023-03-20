@@ -47,4 +47,22 @@ module.exports = {
       });
     }
   },
+
+  async getAllInvoiceByDate(req,res){
+    // #swagger.tags = ['Invoice']
+    try { 
+      const {limit,page,startDate,endDate,ascending} = req.query;
+      let invoices = await InvoiceService.getAllByDate(req.query);
+      return res.status(200).json({
+        status: 200,
+        message: "Get All Invoice By Date Successful",
+        data: invoices,
+      });
+    } catch (err){
+      return res.status(400).json({
+        status: 400,
+        message: "Get All Invoice By Date Failed",
+      });
+    }
+  }
 };
